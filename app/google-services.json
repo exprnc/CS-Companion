@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "628714852164",
+    "project_id": "cs-companion-bddf6",
+    "storage_bucket": "cs-companion-bddf6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:628714852164:android:19b4690e8f94a607921111",
+        "android_client_info": {
+          "package_name": "com.exprnc.cscompanion"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1EahM1zpDSurm5lnlo7uXkb5udhjPdzs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
