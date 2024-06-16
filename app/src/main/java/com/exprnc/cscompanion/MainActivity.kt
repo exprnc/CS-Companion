@@ -41,17 +41,20 @@ class MainActivity : ComponentActivity() {
     fun SetupNavGraph(navController: NavHostController) {
         NavHost(navController = navController, startDestination = "mapsScreen") {
             composable("mapsScreen") { MapsScreen(navController) }
-            composable(
-                "radarScreen/{mapId}",
-                arguments = listOf(navArgument("mapId") { type = NavType.StringType })
-            ) { backStackEntry ->
-                val mapId = backStackEntry.arguments?.getString("mapId")
-                val mapsViewModel: MapsViewModel = viewModel()
-                val map = mapsViewModel.activeMaps.find { it.id == mapId } ?: mapsViewModel.inactiveMaps.find { it.id == mapId }
-                map?.let {
-                    RadarScreen(it)
-                }
-            }
+            composable("schemeScreen") { SchemeScreen(navController) }
+//            composable(
+//                "schemeScreen/{mapId}",
+//                arguments = listOf(navArgument("mapId") { type = NavType.StringType })
+//            ) { backStackEntry ->
+//                val mapId = backStackEntry.arguments?.getString("mapId")
+//                val mapsViewModel: MapsViewModel = viewModel()
+//                val schemeViewModel: SchemeViewModel = viewModel()
+//                val map = mapsViewModel.activeMaps.find { it.id == mapId } ?: mapsViewModel.inactiveMaps.find { it.id == mapId }
+//                val nades = schemeViewModel.nades.filter { it.mapId == mapId }
+//                map?.let {
+//                    SchemeScreen(nades, map.scheme)
+//                }
+//            }
         }
     }
 

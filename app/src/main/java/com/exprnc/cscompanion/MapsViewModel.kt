@@ -2,14 +2,14 @@ package com.exprnc.cscompanion
 
 import android.util.Log
 import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.firestore.FirebaseFirestore
+import com.exprnc.cscompanion.models.Map
 import kotlinx.coroutines.launch
 
 class MapsViewModel : ViewModel() {
-    private val db = FirebaseFirestore.getInstance()
-    private val collectionRef = db.collection("maps")
+    private val collectionMaps = FirestoreDatabase.getCollection("maps")
 
     var activeMaps = mutableStateListOf<Map>()
         private set
@@ -22,17 +22,17 @@ class MapsViewModel : ViewModel() {
 
     private fun fetchMaps() {
         viewModelScope.launch {
-            collectionRef.get()
+            collectionMaps.get()
                 .addOnSuccessListener { result ->
                     for (document in result) {
                         val map = Map(
                             id = document.id,
+                            activePool = document.getBoolean("activePool")!!,
                             image = document.getString("image")!!,
                             name = document.getString("name")!!,
-                            status = document.getString("status")!!,
-                            mapImage = document.getString("mapImage")!!
+                            scheme = document.getString("scheme")!!
                         )
-                        if (map.status == "active") {
+                        if (map.activePool) {
                             activeMaps.add(map)
                         } else {
                             inactiveMaps.add(map)
