@@ -32,7 +32,7 @@ object AppModule {
             context.applicationContext,
             AppDatabase::class.java,
             "cs_companion_database"
-        ).fallbackToDestructiveMigration().build()
+        ).build()
     }
 
     @Provides

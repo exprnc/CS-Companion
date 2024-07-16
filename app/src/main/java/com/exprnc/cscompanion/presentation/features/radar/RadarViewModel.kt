@@ -6,6 +6,7 @@ import com.exprnc.cscompanion.architecture.ViewEvent
 import com.exprnc.cscompanion.domain.repository.GrenadeRepository
 import com.exprnc.cscompanion.presentation.navigation.NavigationArgsStore
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 @HiltViewModel
@@ -21,9 +22,9 @@ class RadarViewModel @Inject constructor(
         launchCoroutine {
             runCatching {
                 val args = NavigationArgsStore.getArgs<RadarArgs>(RadarScreen.ROUTE)
-                grenadeRepository.getGrenadesByMapId(args.mapId)
-            }.onSuccess { grenades ->
-                setState(RadarViewState.Success(grenades))
+                args to grenadeRepository.getGrenadesByMapId(args.map.mapId)
+            }.onSuccess { (args, grenades) ->
+                setState(RadarViewState.Success(args.map, grenades))
             }.onFailure { e ->
                 e.printStackTrace()
                 setState(RadarViewState.Error(e.message ?: "Error not found"))

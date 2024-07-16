@@ -1,8 +1,8 @@
 package com.exprnc.cscompanion.architecture
 
-sealed class LoadingState {
-    object Enabled : LoadingState()
-    object Disabled : LoadingState()
+sealed interface LoadingState {
+    class Enabled(val data: LoadingData? = null) : LoadingState
+    object Disabled : LoadingState
 }
 
 data class LoadingData(

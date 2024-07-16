@@ -31,7 +31,7 @@ abstract class BaseViewModel() : ViewModel() {
     init {
         loadingCount.onEach {
             if (it > 0) {
-                _loadingState.update { LoadingState.Enabled }
+                _loadingState.update { LoadingState.Enabled(loadingDataState.value) }
             } else {
                 _loadingState.update { LoadingState.Disabled }
             }

@@ -6,6 +6,8 @@ import com.exprnc.cscompanion.data.mappers.GrenadeMapper
 import com.exprnc.cscompanion.data.mappers.MapMapper
 import com.exprnc.cscompanion.domain.model.Map
 import com.exprnc.cscompanion.domain.repository.MapRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class MapRepositoryImpl @Inject constructor(
@@ -14,15 +16,15 @@ class MapRepositoryImpl @Inject constructor(
 
     private val mapper by lazy { MapMapper() }
 
-    override suspend fun getMapsByActivePool(activePool: Boolean): List<Map> {
-        return mapDao.getMapsByActivePool(activePool).map { mapper.map(it) }
+    override suspend fun getMapsByActivePool(activePool: Boolean) = withContext(Dispatchers.IO) {
+         mapDao.getMapsByActivePool(activePool).map { mapper.map(it) }
     }
 
-    override suspend fun getMapsByType(type: String): List<Map> {
-        return mapDao.getMapsByType(type).map { mapper.map(it) }
+    override suspend fun getMapsByType(type: String) = withContext(Dispatchers.IO) {
+        mapDao.getMapsByType(type).map { mapper.map(it) }
     }
 
-    override suspend fun insertMap(map: Map) {
+    override suspend fun insertMap(map: Map) = withContext(Dispatchers.IO) {
         mapDao.insert(
             MapDto(
                 mapId = map.mapId,

@@ -6,6 +6,8 @@ import com.exprnc.cscompanion.data.mappers.GrenadeMapper
 import com.exprnc.cscompanion.data.mappers.PositionMapper
 import com.exprnc.cscompanion.domain.model.Position
 import com.exprnc.cscompanion.domain.repository.PositionRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class PositionRepositoryImpl @Inject constructor(
@@ -14,11 +16,11 @@ class PositionRepositoryImpl @Inject constructor(
 
     private val mapper by lazy { PositionMapper() }
 
-    override suspend fun getPositionsByGrenadeId(grenadeId: String): List<Position> {
-        return positionDao.getPositionsByGrenadeId(grenadeId).map { mapper.map(it) }
+    override suspend fun getPositionsByGrenadeId(grenadeId: String) = withContext(Dispatchers.IO) {
+        positionDao.getPositionsByGrenadeId(grenadeId).map { mapper.map(it) }
     }
 
-    override suspend fun insertPosition(position: Position) {
+    override suspend fun insertPosition(position: Position) = withContext(Dispatchers.IO) {
         positionDao.insert(
             PositionDto(
                 positionId = position.positionId,

@@ -14,12 +14,15 @@ import com.exprnc.cscompanion.presentation.features.radar.RadarArgs
 import com.exprnc.cscompanion.presentation.features.radar.RadarScreen
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
 class MapsViewModel @Inject constructor(
     private val mapRepository: MapRepository,
+    private val grenadeRepository: GrenadeRepository,
+    private val positionRepository: PositionRepository,
 ) : BaseViewModel() {
 
     init {
@@ -46,7 +49,7 @@ class MapsViewModel @Inject constructor(
             }
 
             is MapsViewIntent.OnMapClicked -> {
-                val args = RadarArgs(intent.mapId)
+                val args = RadarArgs(intent.map)
                 emitEvent(ViewEvent.Navigation(RadarScreen(args)))
             }
         }

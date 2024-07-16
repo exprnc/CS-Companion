@@ -5,6 +5,8 @@ import com.exprnc.cscompanion.data.local.entities.GrenadeDto
 import com.exprnc.cscompanion.data.mappers.GrenadeMapper
 import com.exprnc.cscompanion.domain.model.Grenade
 import com.exprnc.cscompanion.domain.repository.GrenadeRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class GrenadeRepositoryImpl @Inject constructor(
@@ -13,11 +15,11 @@ class GrenadeRepositoryImpl @Inject constructor(
 
     private val mapper by lazy { GrenadeMapper() }
 
-    override suspend fun getGrenadesByMapId(mapId: String): List<Grenade> {
-        return grenadeDao.getGrenadesByMapId(mapId).map { mapper.map(it) }
+    override suspend fun getGrenadesByMapId(mapId: String) = withContext(Dispatchers.IO) {
+        grenadeDao.getGrenadesByMapId(mapId).map { mapper.map(it) }
     }
 
-    override suspend fun insertGrenade(grenade: Grenade) {
+    override suspend fun insertGrenade(grenade: Grenade) = withContext(Dispatchers.IO) {
         grenadeDao.insert(
             GrenadeDto(
                 grenadeId = grenade.grenadeId,
