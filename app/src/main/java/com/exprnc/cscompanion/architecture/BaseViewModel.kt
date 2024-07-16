@@ -1,9 +1,11 @@
 package com.exprnc.cscompanion.architecture
 
+import android.view.View
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -11,8 +13,11 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-abstract class BaseViewModel<S : ViewState, I : Intent>(defaultState: S) : ViewModel() {
-    private val loadingCount = MutableStateFlow<Int>(0)
+abstract class BaseViewModel() : ViewModel() {
+
+    private val loadingCount = MutableStateFlow(0)
+
+    private val loadingDataState = MutableStateFlow<LoadingData?>(null)
 
     private val _loadingState = MutableStateFlow<LoadingState>(LoadingState.Disabled)
     val loadingState = _loadingState.asStateFlow()
@@ -20,36 +25,8 @@ abstract class BaseViewModel<S : ViewState, I : Intent>(defaultState: S) : ViewM
     private val _viewEvent = MutableSharedFlow<ViewEvent>()
     val viewEvent = _viewEvent.asSharedFlow()
 
-    protected fun emitEvent(event: ViewEvent) {
-        viewModelScope.launch {
-            _viewEvent.emit(event)
-        }
-    }
-
-    private val _viewState = MutableStateFlow<S>(defaultState)
+    private val _viewState = MutableStateFlow<ViewState>(object: ViewState{})
     val viewState = _viewState.asStateFlow()
-
-    protected fun setState(state: S) {
-        _viewState.value = state
-    }
-
-    abstract fun obtainIntent(intent: I)
-
-    protected fun launchCoroutine(
-        needLoader: Boolean = false,
-        block: suspend () -> Unit,
-    ) {
-        viewModelScope.launch {
-            if (needLoader) {
-                loadingCount.update { it + 1 }
-            }
-            block.invoke()
-        }.invokeOnCompletion {
-            if (needLoader) {
-                loadingCount.update { if (it > 0) it - 1 else 0 }
-            }
-        }
-    }
 
     init {
         loadingCount.onEach {
@@ -59,5 +36,35 @@ abstract class BaseViewModel<S : ViewState, I : Intent>(defaultState: S) : ViewM
                 _loadingState.update { LoadingState.Disabled }
             }
         }.launchIn(viewModelScope)
+    }
+
+    abstract fun obtainIntent(intent: Intent)
+
+    protected fun setState(state: ViewState) {
+        _viewState.value = state
+    }
+
+    protected fun emitEvent(event: ViewEvent) {
+        viewModelScope.launch {
+            _viewEvent.emit(event)
+        }
+    }
+
+    protected fun launchCoroutine(
+        needLoader: Boolean = false,
+        loadingData: LoadingData = LoadingData(),
+        block: suspend () -> Unit,
+    ) {
+        viewModelScope.launch {
+            if (needLoader) {
+                loadingDataState.update { loadingData }
+                loadingCount.update { it + 1 }
+            }
+            block.invoke()
+        }.invokeOnCompletion {
+            if (needLoader) {
+                loadingCount.update { if (it > 0) it - 1 else 0 }
+            }
+        }
     }
 }

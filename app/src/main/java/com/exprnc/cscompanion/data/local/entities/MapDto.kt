@@ -8,8 +8,10 @@ import androidx.room.PrimaryKey
 data class MapDto(
     @PrimaryKey @ColumnInfo(name = "map_id") val mapId: String,
     @ColumnInfo(name = "name") val name: String,
-    @ColumnInfo(name = "image") val image: Int,
+    @ColumnInfo(name = "type") val type: String,
     @ColumnInfo(name = "active_pool") val activePool: Boolean,
-    @ColumnInfo(name = "radar_image") val radarImage: Int,
-    @ColumnInfo(name = "radar_image_with_callouts") val radarImageWithCallouts: Int,
+    @ColumnInfo(name = "icon") val icon: String,
+    @ColumnInfo(name = "image") val image: String,
+    @ColumnInfo(name = "radar_image") val radarImage: String,
+    @ColumnInfo(name = "radar_image_with_callouts") val radarImageWithCallouts: String,
 )

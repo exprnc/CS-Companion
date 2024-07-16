@@ -4,4 +4,5 @@ import com.exprnc.cscompanion.domain.model.Grenade
 
 interface GrenadeRepository {
     suspend fun getGrenadesByMapId(mapId: String): List<Grenade>
+    suspend fun insertGrenade(grenade: Grenade)
 }

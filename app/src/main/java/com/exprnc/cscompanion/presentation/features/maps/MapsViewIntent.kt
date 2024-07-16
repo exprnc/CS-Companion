@@ -3,6 +3,6 @@ package com.exprnc.cscompanion.presentation.features.maps
 import com.exprnc.cscompanion.architecture.Intent
 
 sealed interface MapsViewIntent : Intent {
-    object OnMapClicked : MapsViewIntent
+    class OnMapClicked(val mapId: String) : MapsViewIntent
     object OnBackPressed : MapsViewIntent
 }

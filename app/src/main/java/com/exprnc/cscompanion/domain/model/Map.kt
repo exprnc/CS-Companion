@@ -3,8 +3,10 @@ package com.exprnc.cscompanion.domain.model
 data class Map(
     val mapId: String,
     val name: String,
-    val image: Int,
+    val type: String,
     val activePool: Boolean,
-    val radarImage: Int,
-    val radarImageWithCallouts: Int
+    val icon: String,
+    val image: String,
+    val radarImage: String,
+    val radarImageWithCallouts: String
 )

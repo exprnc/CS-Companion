@@ -5,7 +5,8 @@ plugins {
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.compiler.ksp)
     alias(libs.plugins.hilt.android)
-    alias(libs.plugins.parcelize.android)
+
+//    alias(libs.plugins.parcelize.android)
 }
 
 android {
@@ -79,6 +80,10 @@ dependencies {
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
     implementation(libs.hilt.navigation.compose)
-    implementation(libs.gson.android)
-    implementation(libs.converter.gson)
+
+//    implementation(libs.androidx.material)
+//    implementation(libs.dagger)
+//    implementation(libs.dagger.compiler)
+//    implementation(libs.gson.android)
+//    implementation(libs.converter.gson)
 }

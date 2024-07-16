@@ -1,6 +1,7 @@
 package com.exprnc.cscompanion.data.local.dao
 
 import androidx.room.Dao
+import androidx.room.Insert
 import androidx.room.Query
 import com.exprnc.cscompanion.data.local.entities.GrenadeDto
 
@@ -8,4 +9,7 @@ import com.exprnc.cscompanion.data.local.entities.GrenadeDto
 interface GrenadeDao {
     @Query("SELECT * FROM grenades WHERE map_id = (:mapId)")
     fun getGrenadesByMapId(mapId: String): List<GrenadeDto>
+
+    @Insert
+    fun insert(grenade: GrenadeDto)
 }

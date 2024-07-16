@@ -31,8 +31,8 @@ object AppModule {
         return Room.databaseBuilder(
             context.applicationContext,
             AppDatabase::class.java,
-            "app_database"
-        ).build()
+            "cs_companion_database"
+        ).fallbackToDestructiveMigration().build()
     }
 
     @Provides
@@ -57,16 +57,16 @@ abstract class RepositoryModule {
 
     @Binds
     abstract fun bindMapRepository(
-        mapRepositoryImpl: MapRepositoryImpl
+        mapRepositoryImpl: MapRepositoryImpl,
     ): MapRepository
 
     @Binds
     abstract fun bindGrenadeRepository(
-        grenadeRepositoryImpl: GrenadeRepositoryImpl
+        grenadeRepositoryImpl: GrenadeRepositoryImpl,
     ): GrenadeRepository
 
     @Binds
     abstract fun bindPositionRepository(
-        positionRepositoryImpl: PositionRepositoryImpl
+        positionRepositoryImpl: PositionRepositoryImpl,
     ): PositionRepository
 }
