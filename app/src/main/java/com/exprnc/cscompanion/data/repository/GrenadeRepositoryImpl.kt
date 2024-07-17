@@ -25,7 +25,7 @@ class GrenadeRepositoryImpl @Inject constructor(
                 grenadeId = grenade.grenadeId,
                 name = grenade.name,
                 side = grenade.side,
-                type = grenade.type,
+                type = grenade.type.name,
                 offsetX = grenade.offsetX,
                 offsetY = grenade.offsetY,
                 mapId = grenade.mapId

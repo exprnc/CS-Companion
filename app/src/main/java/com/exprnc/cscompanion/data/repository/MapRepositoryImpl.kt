@@ -33,7 +33,7 @@ class MapRepositoryImpl @Inject constructor(
                 activePool = map.activePool,
                 icon = map.icon,
                 image = map.image,
-                radarImage = map.image,
+                radarImage = map.radarImage,
                 radarImageWithCallouts = map.radarImageWithCallouts,
             )
         )
