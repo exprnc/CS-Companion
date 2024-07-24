@@ -13,6 +13,12 @@ import androidx.room.PrimaryKey
             parentColumns = arrayOf("grenade_id"),
             childColumns = arrayOf("grenade_id"),
             onDelete = ForeignKey.CASCADE
+        ),
+        ForeignKey(
+            entity = MapDto::class,
+            parentColumns = arrayOf("map_id"),
+            childColumns = arrayOf("map_id"),
+            onDelete = ForeignKey.CASCADE
         )
     )
 )
@@ -22,4 +28,5 @@ data class PositionDto(
     @ColumnInfo(name = "offsetX") val offsetX: Float,
     @ColumnInfo(name = "offsetY") val offsetY: Float,
     @ColumnInfo(name = "grenade_id") val grenadeId: String,
+    @ColumnInfo(name = "map_id") val mapId: String,
 )

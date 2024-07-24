@@ -80,7 +80,6 @@ dependencies {
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
     implementation(libs.hilt.navigation.compose)
-    implementation(libs.zoomables.utils)
 
 //    implementation(libs.androidx.material)
 //    implementation(libs.dagger)

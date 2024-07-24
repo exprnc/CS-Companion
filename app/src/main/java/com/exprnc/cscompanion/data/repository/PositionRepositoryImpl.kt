@@ -16,8 +16,8 @@ class PositionRepositoryImpl @Inject constructor(
 
     private val mapper by lazy { PositionMapper() }
 
-    override suspend fun getPositionsByGrenadeId(grenadeId: String) = withContext(Dispatchers.IO) {
-        positionDao.getPositionsByGrenadeId(grenadeId).map { mapper.map(it) }
+    override suspend fun getPositionsByMapId(mapId: String) = withContext(Dispatchers.IO) {
+        positionDao.getPositionsByMapId(mapId).map { mapper.map(it) }
     }
 
     override suspend fun insertPosition(position: Position) = withContext(Dispatchers.IO) {
@@ -28,6 +28,7 @@ class PositionRepositoryImpl @Inject constructor(
                 offsetX = position.offsetX,
                 offsetY = position.offsetY,
                 grenadeId = position.grenadeId,
+                mapId = position.mapId
             )
         )
     }

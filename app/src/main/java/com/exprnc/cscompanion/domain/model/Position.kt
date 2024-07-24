@@ -6,4 +6,5 @@ data class Position(
     val offsetX: Float,
     val offsetY: Float,
     val grenadeId: String,
+    val mapId: String,
 )

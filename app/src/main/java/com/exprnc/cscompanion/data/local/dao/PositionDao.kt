@@ -7,8 +7,8 @@ import com.exprnc.cscompanion.data.local.entities.PositionDto
 
 @Dao
 interface PositionDao {
-    @Query("SELECT * FROM positions WHERE grenade_id = (:grenadeId)")
-    fun getPositionsByGrenadeId(grenadeId: String): List<PositionDto>
+    @Query("SELECT * FROM positions WHERE map_id = (:mapId)")
+    fun getPositionsByMapId(mapId: String): List<PositionDto>
 
     @Insert
     fun insert(position: PositionDto)

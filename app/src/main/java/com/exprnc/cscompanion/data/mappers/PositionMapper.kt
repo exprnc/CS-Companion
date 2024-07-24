@@ -12,6 +12,7 @@ class PositionMapper : Mapper<PositionDto, Position> {
             videoURL = from.videoURL,
             offsetX = from.offsetX,
             offsetY = from.offsetY,
-            grenadeId = from.grenadeId
+            grenadeId = from.grenadeId,
+            mapId = from.mapId
         )
 }
