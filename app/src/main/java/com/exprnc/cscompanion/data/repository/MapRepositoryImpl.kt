@@ -2,10 +2,8 @@ package com.exprnc.cscompanion.data.repository
 
 import com.exprnc.cscompanion.data.local.dao.MapDao
 import com.exprnc.cscompanion.data.local.entities.MapDto
-import com.exprnc.cscompanion.data.mappers.GrenadeMapper
 import com.exprnc.cscompanion.data.mappers.MapMapper
 import com.exprnc.cscompanion.domain.model.Map
-import com.exprnc.cscompanion.domain.model.MapType
 import com.exprnc.cscompanion.domain.repository.MapRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -21,8 +19,8 @@ class MapRepositoryImpl @Inject constructor(
          mapDao.getMapsByActivePool(activePool).map { mapper.map(it) }
     }
 
-    override suspend fun getMapsByType(type: MapType) = withContext(Dispatchers.IO) {
-        mapDao.getMapsByType(type.name).map { mapper.map(it) }
+    override suspend fun getMapsByType(type: String) = withContext(Dispatchers.IO) {
+        mapDao.getMapsByType(type).map { mapper.map(it) }
     }
 
     override suspend fun insertMap(map: Map) = withContext(Dispatchers.IO) {

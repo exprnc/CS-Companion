@@ -40,6 +40,7 @@ import androidx.navigation.NavHostController
 import com.exprnc.cscompanion.architecture.Intent
 import com.exprnc.cscompanion.architecture.LoadingState
 import com.exprnc.cscompanion.domain.model.Map
+import com.exprnc.cscompanion.domain.model.MapType
 import com.exprnc.cscompanion.presentation.navigation.ObserveEvents
 import com.exprnc.cscompanion.presentation.ui.components.loading.LoadingPageBlocker
 import kotlinx.coroutines.launch
@@ -82,7 +83,7 @@ private fun SuccessStateView(
     state: MapsViewState.Success,
     onIntent: (Intent) -> Unit
 ) {
-    val pagerState = rememberPagerState(pageCount = { MapsTabs.entries.size })
+    val pagerState = rememberPagerState(pageCount = { MapType.entries.size })
     Column {
         MapsTabsBlock(pagerState)
         HorizontalPager(
@@ -111,7 +112,7 @@ private fun MapItemBlock(map: Map, onIntent: (Intent) -> Unit) {
         modifier = Modifier.fillMaxWidth().height(160.dp).padding(8.dp, 8.dp, 8.dp, 0.dp),
         shape = RoundedCornerShape(8.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
-        onClick = { onIntent.invoke(MapsViewIntent.OnMapClicked(map)) }
+        onClick = { onIntent(MapsViewIntent.OnMapClicked(map)) }
     ) {
         Box(modifier = Modifier.fillMaxWidth()) {
             Image(
@@ -144,25 +145,19 @@ private fun MapsTabsBlock(pagerState: PagerState) {
     }
     val scope = rememberCoroutineScope()
     Column(
-        modifier = Modifier
-            .fillMaxWidth()
+        modifier = Modifier.fillMaxWidth()
     ) {
         TabRow(
             selectedTabIndex = selectedTabIndex.value,
             modifier = Modifier.fillMaxWidth()
         ) {
-            MapsTabs.entries.forEachIndexed { index, currentTab ->
+            MapType.entries.forEachIndexed { index, currentTab ->
                 Tab(
                     selected = selectedTabIndex.value == index,
                     onClick = { scope.launch { pagerState.animateScrollToPage(currentTab.ordinal) } },
-                    text = { Text(text = currentTab.text) }
+                    text = { Text(text = currentTab.name) }
                 )
             }
         }
     }
-}
-
-enum class MapsTabs(val text: String) {
-    COMPETITIVE("Competitive"),
-    WINGMAN("Wingman")
 }

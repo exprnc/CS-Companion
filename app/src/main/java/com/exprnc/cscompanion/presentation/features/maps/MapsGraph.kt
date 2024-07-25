@@ -8,6 +8,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.createGraph
+import com.exprnc.cscompanion.presentation.features.detailgrenade.ThrowingGrenadeScreen
+import com.exprnc.cscompanion.presentation.features.detailgrenade.ThrowingGrenadeView
 import com.exprnc.cscompanion.presentation.features.radar.RadarScreen
 import com.exprnc.cscompanion.presentation.features.radar.RadarView
 import com.exprnc.cscompanion.presentation.navigation.Graphs.MAPS_GRAPH
@@ -26,6 +28,9 @@ fun MapsGraph() {
             }
             composable(RadarScreen.ROUTE) {
                 RadarView(navHostController = navHostController)
+            }
+            composable(ThrowingGrenadeScreen.ROUTE) {
+                ThrowingGrenadeView(navHostController = navHostController)
             }
         }
     )

@@ -32,8 +32,8 @@ class MapsViewModel @Inject constructor(
     private fun setInitialState() {
         launchCoroutine {
             runCatching {
-                competitiveMaps = mapRepository.getMapsByType(MapType.COMPETITIVE)
-                wingmanMaps = mapRepository.getMapsByType(MapType.WINGMAN)
+                competitiveMaps = mapRepository.getMapsByType(MapType.COMPETITIVE.name)
+                wingmanMaps = mapRepository.getMapsByType(MapType.WINGMAN.name)
             }.onSuccess {
                 errorMessage = null
                 setState(defineState())

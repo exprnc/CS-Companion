@@ -7,6 +7,8 @@ import com.exprnc.cscompanion.domain.model.Grenade
 import com.exprnc.cscompanion.domain.model.Position
 import com.exprnc.cscompanion.domain.repository.GrenadeRepository
 import com.exprnc.cscompanion.domain.repository.PositionRepository
+import com.exprnc.cscompanion.presentation.features.detailgrenade.ThrowingGrenadeArgs
+import com.exprnc.cscompanion.presentation.features.detailgrenade.ThrowingGrenadeScreen
 import com.exprnc.cscompanion.presentation.navigation.NavigationArgsStore
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -55,7 +57,10 @@ class RadarViewModel @Inject constructor(
                 setState(defineState())
             }
 
-            is RadarViewIntent.OnPositionClicked -> TODO()
+            is RadarViewIntent.OnPositionClicked -> {
+                val args = ThrowingGrenadeArgs(intent.position)
+                emitEvent(ViewEvent.Navigation(ThrowingGrenadeScreen(args)))
+            }
         }
     }
 
@@ -70,11 +75,11 @@ class RadarViewModel @Inject constructor(
             )
         } else {
             val grenadePositions = positions.filter { position ->
-                position.grenadeId == selectedGrenade!!.grenadeId
+                position.grenadeId == requireNotNull(selectedGrenade).grenadeId
             }
             RadarViewState.GrenadeSelectedState(
                 map = args.map,
-                grenade = selectedGrenade!!,
+                grenade = requireNotNull(selectedGrenade),
                 positions = grenadePositions
             )
         }

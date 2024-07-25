@@ -2,8 +2,8 @@ package com.exprnc.cscompanion.presentation.features.detailgrenade
 
 import com.exprnc.cscompanion.architecture.Screen
 
-class PositionScreen : Screen(route = ROUTE) {
+class ThrowingGrenadeScreen(args: ThrowingGrenadeArgs) : Screen(ROUTE, args) {
     companion object {
-        const val ROUTE = "position"
+        const val ROUTE = "throwing_grenade"
     }
 }
